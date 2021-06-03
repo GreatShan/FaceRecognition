@@ -1,0 +1,114 @@
+Step 1:
+
+    In this code I have used 3 subjects you can use how many subjects you want
+    在这份代码中我用了三个主题，你可以随便用多少个主题。
+    
+    But remember to add folders s04,s05, etc (or delete)based on number of subjects in photos folder
+    and in cropped faces folder add empty folders named s04,s05, etc based on number of subjects
+    First run capturefacesfromvideo.m to get training data. 
+    
+    If you have training data paste the images of subject 1 in photos\s01 and subject 2 in photos\s02
+    and so on and please skip to Step 2.
+    
+    I have set to run loop for 300 times which means we get around 300 images for 1 subject
+    You can change this threshold it is mentioned in code change it according to how much training
+    data you need.
+    
+    And in capturefacesfromvideo.m change the string str = 's01' to str = 's02','s03', etc for each 
+    subject and run it to get training  data for all subjects this will automatically store the data for a 
+    subject in photos\s01 folder for str='s01' and so on for all subject you just need to change the str
+    (which is mentioned in the code).
+
+在这段代码中我用了3个主题你可以用多少主题你想要
+但请记住根据照片文件夹中的主题数添加文件夹s04、s05等（或删除）
+在“裁剪面”文件夹中，根据主题数量添加名为s04、s05等的空文件夹
+首先运行capturefacesfromvideo.m获取训练数据。
+如果有训练数据，请粘贴照片\s01中的主题1和照片\s02中的主题2的图像
+依此类推，请跳到第2步。
+我已经设置运行循环300次，这意味着我们得到一个主题约300图像
+您可以更改代码中提到的阈值，并根据培训的程度进行更改
+你需要的数据。
+在capturefacesfromvideo.m中，将字符串str='s01'更改为str='s02'、's03'等
+主题并运行它以获取所有主题的训练数据这将自动存储
+照片中的主题\s01文件夹中的str='s01'等等，对于所有主题，只需更改str即可
+（代码中提到的）。
+
+
+
+
+
+Step 2:
+
+    Now in SimpleFaceRecognition.m change the value of n which is number of subjects or number of persons.
+    
+    and run it. It will automatically crop faces in data which is in photos folder for each subject and if faces are detected it stores cropped faces in croppedfaces\s01 for subject 1 and so on.
+    and it will resize the image for input size of Neural Network.
+    
+    and it will train the neural network I have set learning rate as 0.00001 you can change this if you want and it will start to train and it will show the process of training.
+    
+    you can see the training process and can manually stop it if the accuracy reaches you desired
+    level (press stop button at top right corner besides number of iterations of dialog box to stop it).
+    and it will show the accuracy of test data.
+现在在SimpleFaceRecognition.m中，改变n的值，n是主体的数目或人数。
+
+然后运行它。它将自动裁剪每个主题的照片文件夹中的数据中的人脸
+如果检测到面，它会将裁剪的面存储在对象1的裁剪面\s01中，以此类推。
+并根据神经网络的输入大小调整图像大小。
+它将训练神经网络，我把学习率设为0.00001，如果你愿意的话，你可以改变这个
+想要，它就会开始训练，它会展示训练的过程。
+您可以看到培训过程，并可以手动停止它，如果精度达到您想要的
+级别（除对话框的迭代次数外，按右上角的停止按钮停止对话框）。
+它将显示测试数据的准确性。
+
+
+
+Step 3:
+
+```
+   Now let's test a new image (It is also mentioned in the code)
+   use code below with giving path to your new image
+   face value is 1 when it detects face in image or 0
+
+   here I have done it for 3 subjects you can change this based on number of subjects.
+```
+
+现在让我们测试一个新image（代码中也提到了它）
+使用下面的代码给出新图像的路径
+当在图像中检测到人脸时，面值为1或0
+在这里，我已经做了3个subject，你可以改变这个根据subject的数量。
+
+```
+(
+	nameofs01 = 'name of subject 1';
+	nameofs02 = 'name of subject 2';
+	nameofs03 = 'name of subject 3';
+	img = imread('...\img.jpg');
+	[img,face] = cropface(img);
+	if face == 1
+    		img = imresize(img,[227 227]);
+    		predict = classify(newnet,img);
+	else
+		fprintf('No face detected \n');
+ 	end
+	if predict=='s01'
+    		fprintf('The face detected is %s \n',nameofs01);
+	elseif  predict=='s02'
+   		fprintf('The face detected is %s \n',nameofs02);
+	elseif  predict=='s03'
+   		fprintf('The face detected is %s \n',nameofs03);
+	end
+)
+```
+
+can use [predict,score] = classify(newnet,img) and fprintf('The face detected is %s with accuracy %f ',nameofs01,scores(str2num(predict(3))));
+here score says the percentage that how confidence it is. 
+
+
+If you want any help please contact me on yashwanthmanjunat@gmail.com.
+     
+
+
+
+
+
+ctrl + R/T  注释快捷键
